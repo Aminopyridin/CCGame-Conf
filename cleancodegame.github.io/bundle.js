@@ -90,7 +90,7 @@ React.render(React.createElement(AppView, {model: new GameModel()}), document.ge
 module.exports=[
   {
     "name": "hello",
-    "instruction": "Найди и исправь все стилевые ошибки в коде. Кликай мышкой по ошибкам.\nКаждая найденная ошибка: +1 балл.",
+    "instruction": "Найди и исправь все стилевые ошибки в коде. Кликай мышкой по ошибкам.\nКаждая найденная ошибка приносит баллы",
     "learning": true,
     "code": "void Main()\n{\n\tConsole.WriteLine(\"Enter your name: \");\n\tvar {{veryBadVariableName_clickIt}} = Console.ReadLine();\n\tConsole.WriteLine(\"Hello, \" + {{veryBadVariableName_clickIt}});\n}",
     "bugs": {
@@ -149,7 +149,7 @@ module.exports=[
   },
   {
     "name": "rstr",
-    "instruction": "Осторожнее — начиная с этого уровня, за каждый неверный клик и каждую подсказку вы будете терять один балл!",
+    "instruction": "Осторожнее — начиная с этого уровня, за каждый неверный клик и каждую подсказку вы будете терять баллы!",
     "code": "var {{rstr}} = Console.ReadLine();\nvar {{flag}} = false;\nfor(var charIndex = 0; charIndex < {{rstr}}.Length; charIndex++)\n{\n\tif ({{flag}} || {{rstr}}[charIndex] != '\\\\')\n\t\tConsole.Write({{rstr}}[charIndex]);\n\t{{flag}} = {{rstr}}[charIndex] == '\\\\';\n}",
     "bugs": {
       "rstr": {
@@ -1045,7 +1045,7 @@ var LevelView = React.createClass({displayName: "LevelView",
 						), 
 						React.createElement("div", {className: "pull-left score-value", ref: "score"}, this.props.score), 
 						 this.props.prevScore > this.props.score
-							? React.createElement("div", {key: this.props.score, className: "pull-left minus-one animated fadeOutDown"}, " —1")
+							? React.createElement("div", {key: this.props.score, className: "pull-left minus-one animated fadeOutDown"}, " —", this.props.prevScore - this.props.score)
 							: null, 
 						React.createElement("div", {className: "clearfix"})
 					)

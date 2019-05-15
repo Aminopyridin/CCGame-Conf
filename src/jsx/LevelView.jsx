@@ -158,7 +158,7 @@ var LevelView = React.createClass({
 						</div>
 						<div className="pull-left score-value" ref="score">{this.props.score}</div>
 						{ this.props.prevScore > this.props.score
-							? <div key={this.props.score} className="pull-left minus-one animated fadeOutDown"> —1</div>
+							? <div key={this.props.score} className="pull-left minus-one animated fadeOutDown"> —{this.props.prevScore - this.props.score}</div>
 							: null }
 						<div className="clearfix" />
 					</div>

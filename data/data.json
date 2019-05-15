@@ -1,7 +1,7 @@
 [
   {
     "name": "hello",
-    "instruction": "Найди и исправь все стилевые ошибки в коде. Кликай мышкой по ошибкам.\nКаждая найденная ошибка: +1 балл.",
+    "instruction": "Найди и исправь все стилевые ошибки в коде. Кликай мышкой по ошибкам.\nКаждая найденная ошибка приносит баллы",
     "learning": true,
     "code": "void Main()\n{\n\tConsole.WriteLine(\"Enter your name: \");\n\tvar {{veryBadVariableName_clickIt}} = Console.ReadLine();\n\tConsole.WriteLine(\"Hello, \" + {{veryBadVariableName_clickIt}});\n}",
     "bugs": {
@@ -60,7 +60,7 @@
   },
   {
     "name": "rstr",
-    "instruction": "Осторожнее — начиная с этого уровня, за каждый неверный клик и каждую подсказку вы будете терять один балл!",
+    "instruction": "Осторожнее — начиная с этого уровня, за каждый неверный клик и каждую подсказку вы будете терять баллы!",
     "code": "var {{rstr}} = Console.ReadLine();\nvar {{flag}} = false;\nfor(var charIndex = 0; charIndex < {{rstr}}.Length; charIndex++)\n{\n\tif ({{flag}} || {{rstr}}[charIndex] != '\\\\')\n\t\tConsole.Write({{rstr}}[charIndex]);\n\t{{flag}} = {{rstr}}[charIndex] == '\\\\';\n}",
     "bugs": {
       "rstr": {
