@@ -54,10 +54,13 @@ var GameModel = Backbone.Model.extend({
 		var startLevelTime = this.get('startLevelTime');
 		var additionalScore = Math.round(1000 - (Date.now() - Math.max(bugTime, startLevelTime)) / 1000);
 
+		if (this.get('levelIndex') === 0) {
+			additionalScore = 1000;
+		}
+
 		var score = this.get('score');
 		var nextScore = score + (additionalScore >= 1 ? additionalScore : 1);
 
-		console.log(score, nextScore, additionalScore);
 
 		this.set({
 			prevScore: score,
