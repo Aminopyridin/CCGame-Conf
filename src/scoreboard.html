@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>The Clean Code Game</title>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+
+	<link href="app.css" rel="stylesheet" type="text/css" charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico?v=0" />
+    <style>
+        #app {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 18px;
+        }
+
+        #app td {
+            border-bottom: 1px solid #eee;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body style="margin: 0;">
+    <div class="header">
+    <div class="container header">
+        <div class="header-text">
+            <h1 class="pointer">The Clean Code Game</h1>
+            <h2>Версия C#</h2>
+        </div>
+    </div>
+    </div>
+    <div style="margin: auto; width: 600px;">
+        <h1>Результаты игры</h1>
+        <table id="app">
+        
+        </table>
+    </div>
+    
+
+	<script>
+        const resultsString = localStorage.getItem('ccscoreboard');
+        const results = JSON.parse(resultsString);
+        const table = document.getElementById('app');
+
+        results.sort((a, b) => a.score - b.score)
+
+        for (const row of results) {
+            const tr = document.createElement('tr');
+            const name = document.createElement('td');
+            name.textContent = row.name;
+
+            const email = document.createElement('td');
+            email.textContent = row.email;
+            
+            const score = document.createElement('td');
+            score.textContent = row.score;
+            
+            tr.appendChild(name);
+            tr.appendChild(email);
+            tr.appendChild(score);
+
+            table.appendChild(tr);
+        }
+
+	</script>
+
+</body>
+</html>

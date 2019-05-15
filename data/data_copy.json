@@ -1,0 +1,15 @@
+[
+  {
+    "name": "hello",
+    "instruction": "Найди и исправь все стилевые ошибки в коде. Кликай мышкой по ошибкам.\nКаждая найденная ошибка: +1 балл.",
+    "learning": true,
+    "code": "void Main()\n{\n\tConsole.WriteLine(\"Enter your name: \");\n\tvar {{veryBadVariableName_clickIt}} = Console.ReadLine();\n\tConsole.WriteLine(\"Hello, \" + {{veryBadVariableName_clickIt}});\n}",
+    "bugs": {
+      "veryBadVariableName_clickIt": {
+        "type": "naming",
+        "replace": "name",
+        "description": "Длинное и ужасное имя переменной!"
+      }
+    }
+  }
+]
