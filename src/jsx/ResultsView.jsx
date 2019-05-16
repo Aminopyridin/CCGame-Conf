@@ -70,13 +70,15 @@ var ResultsView = React.createClass({
 					<span style={{display: 'inline-block', width: 170,}}>Имя, фамилия</span>
 					<input 
 						value={this.state.userName}
-						onChange={(evt) => this.setState({userName: evt.target.value})}
-						required 
-						placeholder="Имя" />
-				</label>
-				<label style={{display: 'block', fontWeight: 'normal'}}>
-					<span style={{display: 'inline-block', width: 170}}>email</span>
-					<input 
+					className="block" 
+					type="text"
+					id="name" 
+					name="name"
+					placeholder="Имя и фамилия"
+					autofocus
+					autocomplete="off"
+				/>
+				<input
 						value={this.state.email} 
 						onChange={(evt) => this.setState({email: evt.target.value})}
 						required 
