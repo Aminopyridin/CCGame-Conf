@@ -36,6 +36,11 @@ gulp.task("img", function(){
 		.pipe(gulp.dest(outputDir + '/img'));
 });
 
+gulp.task("fonts", function(){
+	return gulp.src('src/fonts/*')
+		.pipe(gulp.dest(outputDir + '/fonts'));
+});
+
 gulp.task("web.config", function(){
 	return gulp.src('src/web.config')
 		.pipe(gulp.dest(outputDir));
@@ -80,7 +85,7 @@ gulp.task("js-with-tests", ['browserify'], function(){
 });
 
 gulp.task("default", ['clean'], function(){
-	gulp.start('less', 'js-with-tests', 'browserify', 'html', 'img', 'web.config');
+	gulp.start('less', 'js-with-tests', 'browserify', 'html', 'img', 'fonts', 'web.config');
 });
 
 gulp.task('watch', ['default'], function(){

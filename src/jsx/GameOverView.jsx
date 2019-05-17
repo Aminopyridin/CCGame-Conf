@@ -21,7 +21,7 @@ var GameOverView = React.createClass({
 				Впрочем, возможно, вам просто не повезло. Попробуйте ещё раз!
 			</p>
 
-			<button className="btn btn-lg btn-primary btn-styled" onClick={this.handlePlayAgain}>Ещё раз</button>
+			<button className="button" onClick={this.handlePlayAgain}>Ещё раз</button>
 		</div>;
 	},
 

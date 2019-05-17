@@ -95,10 +95,11 @@ var LevelView = React.createClass({
 
 	renderNextButton: function(){
 		if (!this.finished()) return "";
-		var classes = "btn btn-lg btn-primary btn-styled btn-next";
+		var classes = "button";
 		if (this.props.prevScore < this.props.score) classes += " animated flipInX";
 		return <button ref="nextButton" key={this.props.levelIndex}
 				className={classes}
+				style={{marginTop: 0}}
 				onClick={this.handleNext}>Дальше</button>
 	},
 

@@ -9,60 +9,102 @@
 	<link href="app.css" rel="stylesheet" type="text/css" charset="utf-8">
     <link rel="shortcut icon" href="favicon.ico?v=0" />
     <style>
-        #app {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 18px;
+        .wrapper {
+            padding: 30px;
         }
 
-        #app td {
-            border-bottom: 1px solid #eee;
-            padding: 10px;
+        .leaderboard {
+            width: 100%;
+            color: #333;
+            border-collapse: collapse;
+            table-layout: fixed;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        td, th {
+            text-align: left;
+        }
+
+        td {
+            padding: 5px 0;
+        }
+
+        th {
+            padding: 0.5em 0 1em;
+        }
+
+        .leaderboard-head {
+            font-size: 36px;
+        }
+
+        .leaderboard > thead > tr > th:first-child {
+            width: 75px;
+        }
+
+        .row:first-child,
+        .row:nth-child(2),
+        .row:nth-child(3) {
+            color: #E52E37;;
         }
     </style>
 </head>
 
 <body style="margin: 0;">
-    <div class="header">
-    <div class="container header">
+    <div class="container" style="margin: auto;">
         <div class="header-text">
             <h1 class="pointer">The Clean Code Game</h1>
-            <h2>Версия C#</h2>
         </div>
     </div>
-    </div>
-    <div style="margin: auto; width: 600px;">
-        <h1>Результаты игры</h1>
-        <table id="app">
-        
+    <div class="wrapper">
+        <table class="leaderboard">
+            <thead>
+            <tr class="leaderboard-head">
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody class="tbody" id="table">
+            </tbody>
         </table>
     </div>
-    
 
 	<script>
         const resultsString = localStorage.getItem('ccscoreboard');
         const results = JSON.parse(resultsString);
-        const table = document.getElementById('app');
+        const table = document.getElementById('table');
 
-        results.sort((a, b) => a.score - b.score)
+        results.sort((a, b) => b.score - a.score)
 
-        for (const row of results) {
+        results.forEach((row, i) => {
+            console.log(row);
+
             const tr = document.createElement('tr');
+            tr.classList.add('row');
+
+            const index = document.createElement('td');
+            index.textContent = i + 1;
+
             const name = document.createElement('td');
             name.textContent = row.name;
 
             const email = document.createElement('td');
-            email.textContent = row.email;
+            const emailToPresent = row.email ? row.email.split("@")[0] + "@***" : '';
+            email.textContent = emailToPresent;
             
             const score = document.createElement('td');
             score.textContent = row.score;
             
+            tr.appendChild(index);            
             tr.appendChild(name);
             tr.appendChild(email);
             tr.appendChild(score);
 
             table.appendChild(tr);
-        }
+        })
+
 
 	</script>
 

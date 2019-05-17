@@ -1,3 +1,5 @@
+var settings = require("../settings.json");
+
 var CodeView = React.createClass({
 	propTypes: {
 		code: React.PropTypes.string.isRequired,
@@ -5,9 +7,10 @@ var CodeView = React.createClass({
 	},
 
 	getDefaultProps: function() {
+		console.log(settings.codeMirrorMode)
 		return {
 			lineNumbers: false,
-			mode: "text/x-csharp",
+			mode: settings.codeMirrorMode,
 			readOnly: "nocursor",
 		};
 	},

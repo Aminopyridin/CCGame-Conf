@@ -47,7 +47,7 @@ var ResultsView = React.createClass({
 				<h2>{headerPhrase}</h2>
 				{this.renderScoreInfo()}
 				
-				<p><BooksView /></p>
+				<BooksView />
 				{this.renderAgainButton()}
 			</div>);
 	},
@@ -59,36 +59,38 @@ var ResultsView = React.createClass({
 	},
 
 	renderAgainButton: function(){
-		return <p><a className="btn btn-lg btn-primary btn-styled" href="#" onClick={this.handlePlayAgain}>Ещё разик?</a></p>
+		return <p><a className="button" href="#" onClick={this.handlePlayAgain}>Ещё разик?</a></p>
 	},
 
 	renderAuthView: function() {
 		return (
-			<form onSubmit={this.handleSubmitRegForm}>
-				<h3>Как тебя зовут?</h3>
-				<label style={{display: 'block', fontWeight: 'normal'}}>
-					<span style={{display: 'inline-block', width: 170,}}>Имя, фамилия</span>
+			<div className="registrationContainer">
+				<form className="form" onSubmit={this.handleSubmitRegForm}>
 					<input 
 						value={this.state.userName}
-					className="block" 
-					type="text"
-					id="name" 
-					name="name"
-					placeholder="Имя и фамилия"
-					autofocus
-					autocomplete="off"
-				/>
-				<input
-						value={this.state.email} 
-						onChange={(evt) => this.setState({email: evt.target.value})}
-						required 
-						type="email" 
-						placeholder="email" />
-				</label>
-				<button type="submit" className="btn btn-lg btn-primary btn-styled" style={{width: 400}}>
-					Посмотреть результаты
-				</button>
-			</form>
+						onChange={evt => this.setState({userName: evt.target.value})}
+						className="block" 
+						type="text"
+						id="name" 
+						name="name"
+						placeholder="Имя и фамилия"
+						autofocus
+						autoComplete="off"
+					/>
+					<input
+						value={this.state.email}
+						onChange={evt => this.setState({email: evt.target.value})}
+						className="block" 
+						type="email"
+						id="email" 
+						name="email" 
+						placeholder="Email" 
+						autoComplete="off" />
+					<button className="button" type="submit">
+						Посмотреть результат
+					</button>
+				</form>
+			</div>
 		);
 	},
 
@@ -99,7 +101,6 @@ var ResultsView = React.createClass({
 
 	handleSubmitRegForm: function(evt) {
 		evt.preventDefault();
-		console.log('submit!', this.state);
 		var currentScoreboard = localStorage.getItem("ccscoreboard");
 		if (currentScoreboard) {
 			currentScoreboard = JSON.parse(currentScoreboard);

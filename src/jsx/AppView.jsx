@@ -3,8 +3,6 @@ var GameView = require("./GameView");
 var tracker = require("./Tracker");
 var settings = require("../settings.json");
 
-var ProgressBar = require("./ProgressBar");
-
 var AppView = React.createClass({
 	mixins: [Backbone.React.Component.mixin],
 	getInitialState: function() {
@@ -14,26 +12,25 @@ var AppView = React.createClass({
 	},
 	render: function() {
 		return (
-			<div>
-				{this.renderHeader()}
+				<div>
+					{this.renderHeader()}
 			  	{this.renderBody()}
-				{this.renderFooter()}
 			  </div>
-			  );
+		);
 	},
 
 
 	renderHeader: function(){
 		var classes = "header-text" + (this.state.started ? '' : ' tall');
-		return <div className="header">
-		    <div className="container header">
+		return (
+			<div>
+		    <div className="container">
 		      <div className={classes}>
 			      <h1 className="pointer" onClick={this.handleHome}>The Clean Code Game</h1>
-			      <h2>{settings.version}</h2>
 		      </div>
 		    </div>
-		    {this.state.started && <ProgressBar model={this.getModel()}/>}
 		  </div>
+		)
 	},
 
 	handleHome: function(){
@@ -56,7 +53,7 @@ var AppView = React.createClass({
 		        {settings.description}
 		      </p>
 		      <p>Проверь себя!</p>
-		      <p><button className="btn btn-lg btn-primary btn-styled" onClick={this.handleClick}>Начать игру</button></p>
+		      <p><button className="button" onClick={this.handleClick}>Начать игру</button></p>
 		    </div>
 			<img className="home-cat" src="img/cat.png" />
 		    <div className="clearfix"></div>
@@ -72,16 +69,6 @@ var AppView = React.createClass({
 	handleKonturClick: function(){
 		tracker.track("career");
 	},
-
-	renderFooter: function(){
-		return <div className="footer">
-			    <div className="container">
-			      <p className="text-muted">
-			        © 2019 <a href="https://kontur.ru/career" onClick={this.handleKonturClick}>СКБ Контур</a>
-			      </p>
-			    </div>
-			  </div>;
-	}
 });
 
 React.render(<AppView model={new GameModel()} />, document.getElementById("app"));

@@ -4,8 +4,6 @@ var GameView = require("./GameView");
 var tracker = require("./Tracker");
 var settings = require("../settings.json");
 
-var ProgressBar = require("./ProgressBar");
-
 var AppView = React.createClass({displayName: "AppView",
 	mixins: [Backbone.React.Component.mixin],
 	getInitialState: function() {
@@ -15,26 +13,25 @@ var AppView = React.createClass({displayName: "AppView",
 	},
 	render: function() {
 		return (
-			React.createElement("div", null, 
-				this.renderHeader(), 
-			  	this.renderBody(), 
-				this.renderFooter()
+				React.createElement("div", null, 
+					this.renderHeader(), 
+			  	this.renderBody()
 			  )
-			  );
+		);
 	},
 
 
 	renderHeader: function(){
 		var classes = "header-text" + (this.state.started ? '' : ' tall');
-		return React.createElement("div", {className: "header"}, 
-		    React.createElement("div", {className: "container header"}, 
+		return (
+			React.createElement("div", null, 
+		    React.createElement("div", {className: "container"}, 
 		      React.createElement("div", {className: classes}, 
-			      React.createElement("h1", {className: "pointer", onClick: this.handleHome}, "The Clean Code Game"), 
-			      React.createElement("h2", null, settings.version)
+			      React.createElement("h1", {className: "pointer", onClick: this.handleHome}, "The Clean Code Game")
 		      )
-		    ), 
-		    this.state.started && React.createElement(ProgressBar, {model: this.getModel()})
+		    )
 		  )
+		)
 	},
 
 	handleHome: function(){
@@ -57,7 +54,7 @@ var AppView = React.createClass({displayName: "AppView",
 		        settings.description
 		      ), 
 		      React.createElement("p", null, "Проверь себя!"), 
-		      React.createElement("p", null, React.createElement("button", {className: "btn btn-lg btn-primary btn-styled", onClick: this.handleClick}, "Начать игру"))
+		      React.createElement("p", null, React.createElement("button", {className: "button", onClick: this.handleClick}, "Начать игру"))
 		    ), 
 			React.createElement("img", {className: "home-cat", src: "img/cat.png"}), 
 		    React.createElement("div", {className: "clearfix"})
@@ -73,20 +70,10 @@ var AppView = React.createClass({displayName: "AppView",
 	handleKonturClick: function(){
 		tracker.track("career");
 	},
-
-	renderFooter: function(){
-		return React.createElement("div", {className: "footer"}, 
-			    React.createElement("div", {className: "container"}, 
-			      React.createElement("p", {className: "text-muted"}, 
-			        "© 2019 ", React.createElement("a", {href: "https://kontur.ru/career", onClick: this.handleKonturClick}, "СКБ Контур")
-			      )
-			    )
-			  );
-	}
 });
 
 React.render(React.createElement(AppView, {model: new GameModel()}), document.getElementById("app"));
-},{"../settings.json":16,"./GameModel":6,"./GameView":8,"./ProgressBar":12,"./Tracker":14}],2:[function(require,module,exports){
+},{"../settings.json":15,"./GameModel":6,"./GameView":8,"./Tracker":13}],2:[function(require,module,exports){
 module.exports=[
   {
     "name": "hello",
@@ -664,7 +651,9 @@ var CodeSample = function(data) {
 };
 
 module.exports = CodeSample;
-},{"./utils":15,"lodash":undefined}],5:[function(require,module,exports){
+},{"./utils":14,"lodash":undefined}],5:[function(require,module,exports){
+var settings = require("../settings.json");
+
 var CodeView = React.createClass({displayName: "CodeView",
 	propTypes: {
 		code: React.PropTypes.string.isRequired,
@@ -672,9 +661,10 @@ var CodeView = React.createClass({displayName: "CodeView",
 	},
 
 	getDefaultProps: function() {
+		console.log(settings.codeMirrorMode)
 		return {
 			lineNumbers: false,
-			mode: "text/x-csharp",
+			mode: settings.codeMirrorMode,
 			readOnly: "nocursor",
 		};
 	},
@@ -708,7 +698,7 @@ var CodeView = React.createClass({displayName: "CodeView",
 });
 
 module.exports = CodeView;
-},{}],6:[function(require,module,exports){
+},{"../settings.json":15}],6:[function(require,module,exports){
 var CodeSample = require("./CodeSample");
 window.levels = require("../../data/data.json");
 
@@ -831,7 +821,7 @@ var GameOverView = React.createClass({displayName: "GameOverView",
 				"Впрочем, возможно, вам просто не повезло. Попробуйте ещё раз!"
 			), 
 
-			React.createElement("button", {className: "btn btn-lg btn-primary btn-styled", onClick: this.handlePlayAgain}, "Ещё раз")
+			React.createElement("button", {className: "button", onClick: this.handlePlayAgain}, "Ещё раз")
 		);
 	},
 
@@ -842,7 +832,7 @@ var GameOverView = React.createClass({displayName: "GameOverView",
 });
 
 module.exports = GameOverView;
-},{"./BooksView":3,"./Tracker":14}],8:[function(require,module,exports){
+},{"./BooksView":3,"./Tracker":13}],8:[function(require,module,exports){
 var CodeSample = require("./CodeSample");
 var LevelView = require("./LevelView");
 var ResultsView = require("./ResultsView");
@@ -865,7 +855,7 @@ var GameView = React.createClass({displayName: "GameView",
 });
 
 module.exports = GameView;
-},{"./CodeSample":4,"./GameOverView":7,"./LevelView":10,"./ResultsView":13,"./Tracker":14}],9:[function(require,module,exports){
+},{"./CodeSample":4,"./GameOverView":7,"./LevelView":10,"./ResultsView":12,"./Tracker":13}],9:[function(require,module,exports){
 module.exports =  React.createClass({displayName: "exports",
 	propTypes: {
 		text: React.PropTypes.string.isRequired,
@@ -985,10 +975,11 @@ var LevelView = React.createClass({displayName: "LevelView",
 
 	renderNextButton: function(){
 		if (!this.finished()) return "";
-		var classes = "btn btn-lg btn-primary btn-styled btn-next";
+		var classes = "button";
 		if (this.props.prevScore < this.props.score) classes += " animated flipInX";
 		return React.createElement("button", {ref: "nextButton", key: this.props.levelIndex, 
 				className: classes, 
+				style: {marginTop: 0}, 
 				onClick: this.handleNext}, "Дальше")
 	},
 
@@ -1076,7 +1067,7 @@ var LevelView = React.createClass({displayName: "LevelView",
 });
 
 module.exports=LevelView;
-},{"./CodeSample":4,"./CodeView":5,"./HoverButton":9,"./MessageButton":11,"./Tracker":14,"./utils":15}],11:[function(require,module,exports){
+},{"./CodeSample":4,"./CodeView":5,"./HoverButton":9,"./MessageButton":11,"./Tracker":13,"./utils":14}],11:[function(require,module,exports){
 module.exports = React.createClass({displayName: "exports",
 	propTypes: {
 		title: React.PropTypes.string,
@@ -1098,25 +1089,6 @@ module.exports = React.createClass({displayName: "exports",
 	}
 });
 },{}],12:[function(require,module,exports){
-var ProgressBar = React.createClass({displayName: "ProgressBar",
-	mixins: [Backbone.React.Component.mixin],
-
-	render: function() {
-		return React.createElement("table", {className: "header-progress"}, 
-					React.createElement("tr", null, 
-						
-							_.map(_.keys(this.props.levels), function(level, i){
-								var classes = "progress-tile" + ((i < this.props.levelIndex) ? " solved" : "");
-								return React.createElement("td", {key: "level" + i, className: classes})
-							}.bind(this))
-						
-					)
-				)
-	},
-});
-
-module.exports=ProgressBar;
-},{}],13:[function(require,module,exports){
 var BooksView = require("./BooksView");
 var tracker = require("./Tracker");
 
@@ -1166,7 +1138,7 @@ var ResultsView = React.createClass({displayName: "ResultsView",
 				React.createElement("h2", null, headerPhrase), 
 				this.renderScoreInfo(), 
 				
-				React.createElement("p", null, React.createElement(BooksView, null)), 
+				React.createElement(BooksView, null), 
 				this.renderAgainButton()
 			));
 	},
@@ -1178,32 +1150,36 @@ var ResultsView = React.createClass({displayName: "ResultsView",
 	},
 
 	renderAgainButton: function(){
-		return React.createElement("p", null, React.createElement("a", {className: "btn btn-lg btn-primary btn-styled", href: "#", onClick: this.handlePlayAgain}, "Ещё разик?"))
+		return React.createElement("p", null, React.createElement("a", {className: "button", href: "#", onClick: this.handlePlayAgain}, "Ещё разик?"))
 	},
 
 	renderAuthView: function() {
 		return (
-			React.createElement("form", {onSubmit: this.handleSubmitRegForm}, 
-				React.createElement("h3", null, "Как тебя зовут?"), 
-				React.createElement("label", {style: {display: 'block', fontWeight: 'normal'}}, 
-					React.createElement("span", {style: {display: 'inline-block', width: 170,}}, "Имя, фамилия"), 
+			React.createElement("div", {className: "registrationContainer"}, 
+				React.createElement("form", {className: "form", onSubmit: this.handleSubmitRegForm}, 
 					React.createElement("input", {
 						value: this.state.userName, 
-						onChange: (evt) => this.setState({userName: evt.target.value}), 
-						required: true, 
-						placeholder: "Имя"})
-				), 
-				React.createElement("label", {style: {display: 'block', fontWeight: 'normal'}}, 
-					React.createElement("span", {style: {display: 'inline-block', width: 170}}, "email"), 
+						onChange: evt => this.setState({userName: evt.target.value}), 
+						className: "block", 
+						type: "text", 
+						id: "name", 
+						name: "name", 
+						placeholder: "Имя и фамилия", 
+						autofocus: true, 
+						autoComplete: "off"}
+					), 
 					React.createElement("input", {
 						value: this.state.email, 
-						onChange: (evt) => this.setState({email: evt.target.value}), 
-						required: true, 
+						onChange: evt => this.setState({email: evt.target.value}), 
+						className: "block", 
 						type: "email", 
-						placeholder: "email"})
-				), 
-				React.createElement("button", {type: "submit", className: "btn btn-lg btn-primary btn-styled", style: {width: 400}}, 
-					"Посмотреть результаты"
+						id: "email", 
+						name: "email", 
+						placeholder: "Email", 
+						autoComplete: "off"}), 
+					React.createElement("button", {className: "button", type: "submit"}, 
+						"Посмотреть результат"
+					)
 				)
 			)
 		);
@@ -1216,7 +1192,6 @@ var ResultsView = React.createClass({displayName: "ResultsView",
 
 	handleSubmitRegForm: function(evt) {
 		evt.preventDefault();
-		console.log('submit!', this.state);
 		var currentScoreboard = localStorage.getItem("ccscoreboard");
 		if (currentScoreboard) {
 			currentScoreboard = JSON.parse(currentScoreboard);
@@ -1240,7 +1215,7 @@ var ResultsView = React.createClass({displayName: "ResultsView",
 
 module.exports = ResultsView;
 
-},{"./BooksView":3,"./Tracker":14}],14:[function(require,module,exports){
+},{"./BooksView":3,"./Tracker":13}],13:[function(require,module,exports){
 module.exports = {
 	levelSolved: function(levelIndex){
 		var category = 'level-solved';
@@ -1271,7 +1246,7 @@ module.exports = {
 		}
 	}
 };
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 module.exports.animate = function(comp, effect){
@@ -1309,9 +1284,9 @@ module.exports.escapeRe = function(str) {
 };
 
 
-},{}],16:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports={
-    "version": "Версия C#",
-    "description": "Все хотят иметь дело только\nс понятным чистым кодом.\nНо не все могут его создавать."
+    "description": "Все хотят иметь дело только\nс понятным чистым кодом.\nНо не все могут его создавать.",
+    "codeMirrorMode": "text/x-csharp"
 }
 },{}]},{},[1]);
