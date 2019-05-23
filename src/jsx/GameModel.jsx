@@ -1,5 +1,5 @@
 var CodeSample = require("./CodeSample");
-window.levels = require("../../data/data.json");
+window.levels = require("../../data/data-js.json");
 
 function getHash(){
 	if (window && window.location && window.location.hash !== undefined && window.location.hash.length > 0)
@@ -72,7 +72,7 @@ var GameModel = Backbone.Model.extend({
 
 	useHint: function(){
 		if (~~this.get('level').learning) return;
-		this.decreaseScore(this.get('score'));
+		this.decreaseScore(this.get('score') - 400);
 	},
 
 	missClick: function(){
