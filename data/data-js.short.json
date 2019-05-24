@@ -1,0 +1,24 @@
+[
+  {
+    "name": "endComments",
+    "instruction": "Как вы уже поняли, далеко не все комментарии полезны!",
+    "code": "try {\n\tlet linesCount = 0;\n\tlet charsCount = 0;\n\tfor (const line of lines) {\n\t\tlinesCount++;\n\t\tcharsCount += line.length;\n\t} {{//for}}\n} {{//try}}\ncatch (e) {\n\tconsole.error(`Error: ${e.message}`);\n} {{//catch}}",
+    "bugs": {
+      "//for": {
+        "type": "comments",
+        "replace": "",
+        "description": "Комментарии вида 'конец цикла', 'конец функции' и подобные бессмысленны. "
+      },
+      "//try": {
+        "type": "comments",
+        "replace": "",
+        "description": "Для коротких функций такие комментарии не нужны, а длинные функции лучше разбить на несколько более коротких."
+      },
+      "//catch": {
+        "type": "comments",
+        "replace": "",
+        "description": "Современные среды разработки и программистские редакторы умеют подсвечивать парные скобки. Это надежнее таких комментариев."
+      }
+    }
+  }
+]

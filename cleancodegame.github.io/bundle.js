@@ -92,7 +92,7 @@ module.exports=[
     "name": "GetThem",
     "instruction": "Качественно выбранные имена — то что делает ваш код понятнее!",
     "learning": true,
-    "code": "function {{getThem}}({{theBigList}}) {\n\tconst {{list1}} = []\n\n\t{{theBigList}}.foreach(function(cell, index) {\n\t\tif (!cell) {\n\t\t\t{{list1}}.push(index)\n\t\t}\n\t})\n\treturn {{list1}}\n}",
+    "code": "function {{getThem}}({{theBigList}}) {\n\tconst {{list1}} = []\n\n\t{{theBigList}}.forEach(function(cell, index) {\n\t\tif (!cell) {\n\t\t\t{{list1}}.push(index)\n\t\t}\n\t})\n\treturn {{list1}}\n}",
     "bugs": {
       "getThem": {
         "type": "naming",
@@ -174,28 +174,6 @@ module.exports=[
     }
   },
   {
-    "name": "arg",
-    "instruction": "В имени нужно отражать полезный для понимания смысл и стараться избегать слов заместителей с неопределенным смыслом.",
-    "code": "function runJsonConverting({{arg}}) {\n\t{{arg}} = {{arg}} || defaultFilename;\n\tvar lastWriteTime = fs.statSync({{arg}}).mtimeMs;\n\tvar oneSecond = 1000;\n\tvar {{check}} = lastWriteTime > (Date.now() - oneSecond);\n\t{{handle}}({{arg}}, {{check}});\n}",
-    "bugs":  {
-      "arg": {
-        "replace": "inputFile",
-        "type": "naming",
-        "description": "Отражайте в имени то, что важно при дальнейшем использовании.\nВ данном случае то, что это имя входного файла важнее того, что это аргумент функции"
-      },
-      "check": {
-        "replace": "recentlyModified",
-        "type": "naming",
-        "description": "Имя 'check' почти всегда можно улучшить. Сообщите в имени, что именно проверяется."
-      },
-      "handle": {
-        "type": "methods",
-        "replace": "convertFileToJson",
-        "description": "Handle — слово заместитель, не добавляющее смысла. В чем именно заключается \"обработка\"? Отразите это в имени вместо слова handle."
-      }
-    }
-  },
-  {
     "name": "manager",
     "instruction": "Продолжаем охоту на слова без смысла.",
     "code": "function {{dataManager}}() {\n\tconst filePath = path.resolve(settings.defaultDirectory, 'tasks.json');\n\tconst fileRowText = fs.readFileSync(filePath);\n\tconst tasks = JSON.parse(fileRowText);\n\treturn tasks;\n}",
@@ -226,23 +204,6 @@ module.exports=[
         "replace": "",
         "type": "comments",
         "description": "Нет смысла писать комментарии, повторяющие код."
-      }
-    }
-  },
-  {
-    "name": "English",
-    "instruction": "В составных именах очень легко случайно продемонстрировать незнание английского :-)",
-    "code": "let {{directoryInput}};\n\nlet outputDirectory;\n\nconst {{qualityRender}} = ['high', 'medium', 'low'];",
-    "bugs": {
-      "qualityRender": {
-        "type": "naming",
-        "replace": "renderQuality",
-        "description": "Нарушение правильного порядка слов в составных именах — частая ошибка программистов \nсо слабым знанием английского.\nКачество рендера — это qualityOfRender или просто renderQuality."
-      },
-      "directoryInput": {
-        "type": "naming",
-        "replace": "inputDirectory",
-        "description": "directoryInput с английского — это ввод директории. Входная директория — это inputDirectory."
       }
     }
   },
@@ -286,45 +247,6 @@ module.exports=[
         "replace": "x",
         "description": "Избегайте необходимости мысленного декодирования при чтении кода."
       }
-    }
-  },
-  {
-    "name": "Initialization",
-    "instruction": "Переменные и классы — это сущности, а методы и функции — действия. Имейте это в виду!",
-    "code": "function {{initialization}}(boardSize) {\n\tconsole.log('Board initialization...');\n\tlet piecesCount = 0;\n\tboard = {{board}}(boardSize, boardSize);\n\tconsole.log('Board initialization finished');\n}",
-    "bugs": {
-      "initialization": {
-        "type": "methods",
-        "replace": "initializeBoard",
-        "description": "Функции — это действия, называйте их глаголами или глагольными фразами."
-      },
-      "board": {
-        "type": "methods",
-        "replace": "createBoard",
-        "description": "Функции — это действия, называйте их глаголами или глагольными фразами."
-      }
-    }
-  },
-  {
-    "name": "GetSet",
-    "instruction": "Имена должны выполнять обещания и не вводить читателя в замешательство.",
-    "code": "function {{getFactory}}() {\n\tconst user = process.env.username;\n\tfactory = {{factoryCreator}}(user);\n}\n\nfunction getTimer() {\n\treturn timerId;\n}\n\nfunction {{setTimer}}() {\n\ttimerId = setTimeout(settings.timerCallback, settings.delay);\n}",
-    "bugs": {
-      "getFactory": {
-          "type": "methods",
-          "replace": "initFactory",
-          "description": "Функции с именами getXXX, createXXX, readXXX должны возвращать результат."
-        },
-        "factoryCreator": {
-          "type": "methods",
-          "replace": "createFactory",
-          "description": "Функции — это действия, называйте их глаголами или глагольными фразами."
-        },
-        "setTimer": {
-          "type": "methods",
-          "replace": "initTimerFromSettings",
-          "description": "Функции с именами setXXX должны принимать устанавливаемое значение в качестве аргумента. \nФункции без аргументов лучше так не называть."
-        }
     }
   },
   {
@@ -384,57 +306,6 @@ module.exports=[
     }
   },
   {
-    "name": "nameInsteadOfComment",
-    "instruction": "Но не спешите удалять все комментарии из вашего кода. Бывают и полезные!",
-    "code": "//format matched: hh:mm:ss, MMM dd, yyyy\nconst timeRegex = /\\d*:\\d*:\\d*, \\w* \\d*, \\d*/\n\nconst responder = {{getResponder(); //Returns the Responder being tested.}}",
-    "bugs": {
-      "getResponder();": {
-        "type": "naming",
-        "replace": "getTestResponder();",
-        "description": "Если появляется желание написать поясняющий комментарий к методу, стоит вместо этого постараться придумать более удачное имя методу."
-      }
-    }
-  },
-  {
-    "name": "ExplainCompare",
-    "instruction": "Хорошие комментарии должны объяснять намерения программиста в тех случаях, когда их сложно выразить непосредственно кодом.",
-    "code": "{{//comparison of this and other object}}\ncompareTo (obj) {\n\tconst other = obj instanceof WikiPagePath;\n\tif (other) {\n\t\t{{//compares concatenated names of this and others}}\n\t\tconst thisNames = this.names.join('');\n\t\tconst otherNames = obj.names.join('');\n\t\treturn thisNames > otherNames ? 1 : -1;\n\t}\n\treturn 1; // WikiPagePath should be greater than any other wrong type.\n} {{//end of compareTo}}",
-    "bugs": {
-      "//compares": {
-        "type": "comments",
-        "replace": "",
-        "description": "Комментарии дословно повторяющие код бессмысленны."
-      },
-      "//comparison": {
-        "type": "comments",
-        "replace": "",
-        "description": "Бессмысленно писать в комментарии то, что итак понятно из названия метода."
-      },
-      "//end": {
-        "type": "comments",
-        "replace": "",
-        "description": "Комментарии вида 'конец цикла', 'конец функции' и подобные бессмысленны. \nДля коротких функций они не нужны, а длинные функции лучше разбить на несколько более коротких, вместо написания таких комментариев."
-      }
-    }
-  },
-  {
-    "name": "XMLDoc",
-    "instruction": "А что вы думаете о JSDoc-документации?",
-    "code": "{{/**\n*Читает файл\n*@param {string} filePath — путь до файла \n*/}}\nfunction readFile(filePath) {\n\treturn fs.readFileSync(filePath);\n}\n\n/**\n*Форматирует дату в формат DD.MM.yyyy\n*/\nfunction formatDate(date) {\n\treturn date.toLocaleDateString('ru')\n}\n\n{{/**\n*Возвращает день недели\n*@param {Date} date - дата\n*/}}\nfunction getDayOfWeek(date) {\n\tconst days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'черверг', 'пятница', 'суббота'];\n\treturn days[date.getDay()];\n}",
-    "bugs": {
-      "/**\n*Читает": {
-        "type": "comments",
-        "replace": "",
-        "description": "JSDoc-комментарии не несущие новой информации бесполезны."
-      },
-      "/**\n*Возвращает": {
-        "type": "comments",
-        "replace": "",
-        "description": "Не пишите JSDoc-комментарий только для того, чтобы он был. В наличии комментария должен быть какой-то смысл."
-      }
-    }
-  },
-  {
     "name": "collision",
     "instruction": "Время закрепить освоенные знания!",
     "code": "{{/** \n * Обрабатывает столкновение героя с врагом\n */}}\nfunction collisionHandler(hero, enemy) {\n\t{{//If hero and enemy collided\n\tif ((hero.x - enemy.x)*(hero.x - enemy.x) + (hero.y - enemy.y)*(hero.y - enemy.y)\n\t    < (hero.radius + enemy.radius)*(hero.radius + enemy.radius)}}) {\n\t\thero.life--;\n\t\tif (!hero.isAlive) {{//нужно оповестить подписчиков}}\n\t\t\tonHeroDeath(hero);\n\t}\n}",
@@ -453,38 +324,6 @@ module.exports=[
         "type": "comments",
         "replace": "",
         "description": "Комментарии дословно повторяющие код бессмысленны."
-      }
-    }
-  },
-  {
-    "name": "LoadMap",
-    "instruction": "Последний уровень! По законам жанра тут должно быть много кода!",
-    "code": "/** \n * @param {String} path\n * Path to file or directory with map description. \n * If path is a path to directory, file default.map is used.\n */\nfunction loadMap(filePath) {\n\tconst {{Filename}} = fs.stat(filePath).isDirectory() \n\t\t? path.resolve(filePath, 'default.map') \n\t\t: filePath;\n\tconst lines = fs.readFileSync(filePath).split('\\n');\n\tconst height = lines.length;\n\tconst width = lines[0].length;\n\t{{//Initialize map}}\n\tconst map = new GameMap(width, height{{, {\n\t\tscore: 0,\n\t\theroLifesCount: 3,\n\t\ttime: 0,\n\t} }});\n\n\tfor(let y = 0; y < height; y++) {\n\t\tfor(let x = 0; x < {{lines[0].length}}; x++) {\n\t\t\t{{//============Select object to put in (x, y) cell;\n\t\t\tlet obj = null;\n\t\t\tswitch (lines[y][x]) {\n\t\t\t\tcase 'H': \n\t\t\t\t\tobj = new Hero();\n\t\t\t\tbreak;\n\t\t\tcase '#':\n\t\t\t\tobj = new Wall();\n\t\t\t\tbreak;\n\t\t\tcase 'M':\n\t\t\t\tobj = new Monster();\n\t\t\t\tbreak;\n\t\t\t}\n\t\t\t//============Put created object on map}}\n\t\t\tmap.put(x, y, obj);\n\t\t}\n\t}\n}",
-    "bugs": {
-      "Filename": {
-        "type": "naming",
-        "replace": "filename",
-        "description": "В JS переменные принято называть с маленькой буквы."
-      },
-      "lines[0].length": {
-        "type": "other",
-        "replace": "width",
-        "description": "Устраняйте дублирование. Это делает код  понятнее и надежнее."
-      },
-      "//Initialize": {
-        "type": "comments",
-        "replace": "",
-        "description": "При виде комментария, разделяющего метод на смысловые части, стоит вынести эти смысловые части в отдельные методы."
-      },
-      ",": {
-        "type": "methods",
-        "replace": "",
-        "description": "Логику инициализации полей карты лучше переместить в конструктор класса карты."
-      },
-      "//============Select": {
-        "type": "methods",
-        "replace": "var obj = createGameObjectFromSymbol(lines[y][x]);",
-        "description": "Разделительные комментарии вроде такого часто показывают, что программист поленился выделить вспомогательный метод."
       }
     }
   }
@@ -934,7 +773,7 @@ var LevelView = React.createClass({displayName: "LevelView",
 
 	handleNext: function(){
 		utils.animate(this.refs.round, "fadeOutLeft");
-		$(this.refs.round.getDOMNode()).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+		$(this.refs.round.getDOMNode()).one('webkitAnimationEnd', function(){
 			this.setState({solved: true});
 			tracker.levelSolved(this.props.levelIndex);
 			this.getModel().finishLevel();

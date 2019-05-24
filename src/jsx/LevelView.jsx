@@ -76,7 +76,7 @@ var LevelView = React.createClass({
 
 	handleNext: function(){
 		utils.animate(this.refs.round, "fadeOutLeft");
-		$(this.refs.round.getDOMNode()).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+		$(this.refs.round.getDOMNode()).one('webkitAnimationEnd', function(){
 			this.setState({solved: true});
 			tracker.levelSolved(this.props.levelIndex);
 			this.getModel().finishLevel();
