@@ -1,5 +1,5 @@
 var CodeSample = require("./CodeSample");
-window.levels = require("../../data/data-js.json");
+window.levels = require("../../data/data.json");
 
 function getHash(){
 	if (window && window.location && window.location.hash !== undefined && window.location.hash.length > 0)

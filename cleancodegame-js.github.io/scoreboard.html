@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>The Clean Code Game</title>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+
+	<link href="app.css" rel="stylesheet" type="text/css" charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico?v=0" />
+    <style>
+        .wrapper {
+            padding: 30px;
+        }
+
+        .leaderboard {
+            width: 100%;
+            color: #333;
+            border-collapse: collapse;
+            table-layout: fixed;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        td, th {
+            text-align: left;
+        }
+
+        td {
+            padding: 5px 0;
+        }
+
+        th {
+            padding: 0.5em 0 1em;
+        }
+
+        .leaderboard-head {
+            font-size: 36px;
+        }
+
+        .leaderboard > thead > tr > th:first-child {
+            width: 75px;
+        }
+
+        .row:first-child,
+        .row:nth-child(2),
+        .row:nth-child(3) {
+            color: #E52E37;;
+        }
+    </style>
+</head>
+
+<body style="margin: 0;">
+    <div class="container" style="margin: auto;">
+        <div class="header-text">
+            <h1 class="pointer">The Clean Code Game</h1>
+        </div>
+    </div>
+    <div class="wrapper">
+        <table class="leaderboard">
+            <thead>
+            <tr class="leaderboard-head">
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody class="tbody" id="table">
+            </tbody>
+        </table>
+    </div>
+
+	<script>
+        const resultsString = localStorage.getItem('ccscoreboard');
+        const results = JSON.parse(resultsString);
+        const table = document.getElementById('table');
+
+        results.sort((a, b) => b.score - a.score)
+
+        results.forEach((row, i) => {
+            const tr = document.createElement('tr');
+            tr.classList.add('row');
+
+            const index = document.createElement('td');
+            index.textContent = i + 1;
+
+            const name = document.createElement('td');
+            name.textContent = row.name;
+
+            const email = document.createElement('td');
+            const emailToPresent = row.email ? row.email.split("@")[0] + "@***" : '';
+            email.textContent = emailToPresent;
+            
+            const score = document.createElement('td');
+            score.textContent = row.score;
+            
+            tr.appendChild(index);            
+            tr.appendChild(name);
+            tr.appendChild(email);
+            tr.appendChild(score);
+
+            table.appendChild(tr);
+        })
+
+
+	</script>
+
+</body>
+</html>

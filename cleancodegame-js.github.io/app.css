@@ -1,0 +1,221 @@
+:root {
+  --text-font: #333;
+  --background-blue: #eee;
+  --background-white: white;
+  --accent-color: #E52E37;
+  --green: #66cc00;
+}
+body {
+  font-family: "Segoe UI Light", "Segoe UI", "Helvetica Neue", "Arial", "Tahoma", sans-serif;
+  font-size: 14pt;
+  margin-bottom: 70px;
+  overflow-x: hidden;
+}
+.footer {
+  height: 30px;
+  padding-top: 4px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f5f5f5;
+  z-index: 100;
+}
+.pointer {
+  cursor: pointer;
+}
+.header-text {
+  display: inline-block;
+}
+.header-text.tall {
+  height: 250px;
+}
+.header-text.tall h1 {
+  margin-top: 100px;
+}
+@media (max-width: 700px) {
+  .header-text.tall {
+    height: 180px;
+  }
+  .header-text.tall h1 {
+    margin-top: 50px;
+  }
+}
+.header-text h1 {
+  margin-bottom: 40px;
+  margin-left: -10px;
+  font-family: "Segoe UI Light", "Segoe UI", "Helvetica Neue", "Arial", "Tahoma", sans-serif;
+  font-weight: 100;
+  font-size: 54pt;
+  color: var(--accent-color);
+}
+@media (max-width: 700px) {
+  .header-text h1 {
+    font-size: 24pt;
+  }
+}
+.header-progress {
+  width: 100%;
+}
+.header-progress .progress-tile {
+  border-top: 4px solid white;
+  height: 16px;
+  background-color: white;
+}
+.header-progress .progress-tile.solved {
+  background-color: #5b9bd5;
+  transition: background 1s ease;
+}
+.container {
+  position: relative;
+  max-width: 800px;
+}
+.container.body {
+  display: flex;
+  justify-content: space-between;
+}
+.container.body:before {
+  display: none;
+}
+.home-text {
+  margin: 70px 0px 20px;
+  font-size: 14pt;
+  white-space: pre-wrap;
+}
+.home-text p {
+  margin-top: 30px;
+}
+.home-cat {
+  margin-top: 20px;
+}
+.score {
+  font-size: 18pt;
+}
+.score-value {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.minus-one {
+  font-weight: bold;
+  color: white;
+  margin-left: 10px;
+  background-color: #2d4d88;
+  padding: 5px;
+}
+.last-desc {
+  font-weight: bold;
+}
+.share {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.books {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.books .book {
+  margin-right: 10px;
+}
+.CodeMirror {
+  border: 0;
+  margin-top: 10px;
+  height: auto;
+  line-height: 1.3em;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 12pt;
+}
+.CodeMirror .CodeMirror-scroll {
+  height: auto;
+  overflow-y: hidden !important;
+  overflow-x: auto !important;
+}
+.CodeMirror .CodeMirror-lines {
+  cursor: pointer;
+}
+.code-container {
+  position: relative;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.code-toolbar {
+  font-size: 12pt;
+  color: #888;
+  cursor: pointer;
+}
+.code-toolbar .tb-item {
+  cursor: pointer;
+  border-bottom: 1px dashed;
+  margin-right: 10px;
+}
+.code-toolbar .tb-item.disabled {
+  border-bottom: none;
+  cursor: auto;
+  color: #aaa;
+}
+.animated-fast {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.bootbox-body {
+  margin: 30px;
+}
+.modal-footer .btn-primary {
+  border-radius: 0px;
+  border: 0px;
+  font-family: 'Bookman Old Style', 'Arial', 'Tahoma', sans-serif;
+  font-size: 18pt;
+  width: 150px;
+  height: 50px;
+}
+.registrationContainer {
+  max-width: 660px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.block {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid var(--text-font);
+  color: var(--text-font);
+  padding: 0 24px 0;
+  min-width: 275px;
+  font-size: 24px;
+  line-height: 50px;
+}
+.block:focus {
+  outline: none;
+  border-bottom-color: var(--accent-color);
+}
+.button {
+  display: inline-block;
+  color: var(--text-font);
+  border: 2px solid var(--text-font);
+  padding: 0 24px 0;
+  margin: 30px 0;
+  min-width: 170px;
+  font-size: 24px;
+  font-weight: 600;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 44px;
+  vertical-align: top;
+  line-height: 50px;
+  text-decoration: none;
+}
+.button:hover,
+.button:focus {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+  outline: none;
+  text-decoration: none;
+}

@@ -174,28 +174,6 @@ module.exports=[
     }
   },
   {
-    "name": "arg",
-    "instruction": "В имени нужно отражать полезный для понимания смысл и стараться избегать слов заместителей с неопределенным смыслом.",
-    "code": "static void Main(string[] args)\n{\n\tvar {{arg}} = args.Length > 0 ? args[0] : defaultFilename;\n\tDateTime lastWriteTime = new FileInfo({{arg}}).LastWriteTime;\n\tbool {{check}} = lastWriteTime > DateTime.Now - TimeSpan.FromSeconds(1);\n\t{{Handle}}({{arg}}, {{check}});\n\tConsole.WriteLine(lastWriteTime);\n}",
-    "bugs": {
-      "arg": {
-        "replace": "inputFile",
-        "type": "naming",
-        "description": "Отражайте в имени то, что важно при дальнейшем использовании.\nВ данном случае то, что это имя входного файла важнее того, что оно получено из аргументов командной строки."
-      },
-      "check": {
-        "replace": "recentlyModified",
-        "type": "naming",
-        "description": "Имя 'check' почти всегда можно улучшить. Сообщите в имени, что именно проверяется."
-      },
-      "Handle": {
-        "type": "methods",
-        "replace": "ConvertFileToJson",
-        "description": "Handle — слово заместитель, не добавляющее смысла. В чем именно заключается \"обработка\"? Отразите это в имени вместо слова Handle."
-      }
-    }
-  },
-  {
     "name": "manager",
     "instruction": "Продолжаем охоту на слова без смысла.",
     "code": "public interface {{IPriceManager}}\n{\n\tJson JsonFromXml(XmlDocument prices);\n\tXmlDocument XmlFromJson(Json prices);\n}",
@@ -226,35 +204,6 @@ module.exports=[
         "replace": "",
         "type": "comments",
         "description": "Нет смысла писать комментарии, повторяющие код."
-      }
-    }
-  },
-  {
-    "name": "English",
-    "instruction": "В составных именах очень легко случайно продемонстрировать незнание английского :-)",
-    "code": "private string {{directoryInput}};\n\nprivate string outputDirectory;\n\npublic enum {{QualityRender}} \n{\n\tHigh,\n\tMedium,\n\tLow\n}\n",
-    "bugs": {
-      "QualityRender": {
-        "type": "naming",
-        "replace": "RenderQuality",
-        "description": "Нарушение правильного порядка слов в составных именах — частая ошибка программистов \nсо слабым знанием английского.\nКачество рендера — это QualityOfRender или просто RenderQuality."
-      },
-      "directoryInput": {
-        "type": "naming",
-        "replace": "inputDirectory",
-        "description": "directoryInput с английского — это ввод директории. Входная директория — это inputDirectory."
-      }
-    }
-  },
-  {
-    "name": "ShareIfYouLike",
-    "instruction": "Автору будет приятно, если вы поделитесь ссылкой на эту игру с коллегами.\nЗаранее спасибо! :-)",
-    "code": "if (you.Like(this.Game))\n{\n\tyou.Tweet();\n\tyou.Post();\n\tyou.Share();\n}\nelse\n{\n\tyou.{{H4Te_AUth0R()}};\n}\n",
-    "bugs": {
-      "H4Te_AUth0R()": {
-        "type": "naming",
-        "replace": "EmailAuthor(\"pe@kontur.ru\")",
-        "description": "Ненависть — плохое чувство! :-)"
       }
     }
   },
@@ -297,45 +246,6 @@ module.exports=[
         "type": "naming",
         "replace": "x",
         "description": "Избегайте необходимости мысленного декодирования при чтении кода."
-      }
-    }
-  },
-  {
-    "name": "Initialization",
-    "instruction": "Переменные и классы — это сущности, а методы — действия. Имейте это в виду!",
-    "code": "public void {{Initialization}}(int boardSize)\n{\n\tLog(\"Board initialization...\");\n\tthis.piecesCount = 0;\n\tthis.board = {{Board}}(boardSize, boardSize);\n\tLog(\"Board initialization finished\");\n}",
-    "bugs": {
-      "Initialization": {
-        "type": "methods",
-        "replace": "InitializeBoard",
-        "description": "Методы — это действия, называйте их глаголами или глагольными фразами."
-      },
-      "Board": {
-        "type": "methods",
-        "replace": "CreateBoard",
-        "description": "Методы — это действия, называйте их глаголами или глагольными фразами."
-      }
-    }
-  },
-  {
-    "name": "GetSet",
-    "instruction": "Имена должны выполнять обещания и не вводить читателя в замешательство.",
-    "code": "void {{GetFactory}}()\n{\n\tvar user = Environment.UserName;\n\tthis.factory = {{FactoryCreator}}(user);\n}\n\nTimeSpan GetTimeout()\n{\n\treturn this.timeout;\n}\n\nvoid {{SetTimeout}}()\n{\n\tvar sectionName = systemName + \"/timeout\";\n\tthis.timeout = ReadSettings(sectionName).Timeout;\n}",
-    "bugs": {
-      "GetFactory": {
-        "type": "methods",
-        "replace": "InitFactory",
-        "description": "Методы GetXXX, CreateXXX, ReadXXX должны возвращать результат.\nvoid-методы, инициализирующие поля класса лучше так не называть."
-      },
-      "FactoryCreator": {
-        "type": "methods",
-        "replace": "CreateFactory",
-        "description": "Методы — это действия, называйте их глаголами или глагольными фразами."
-      },
-      "SetTimeout": {
-        "type": "methods",
-        "replace": "InitTimeoutFromSettings",
-        "description": "Методы SetXXX должны принимать устанавливаемое значение в качестве аргумента. \nМетоды без аргументов лучше так не называть."
       }
     }
   },
@@ -396,62 +306,6 @@ module.exports=[
     }
   },
   {
-    "name": "nameInsteadOfComment",
-    "instruction": "Но не спешите удалять все комментарии из вашего кода. Бывают и полезные!",
-    "code": "//format matched: hh:mm:ss, MMM dd, yyyy\nprivate Regex timeRegex = new Regex(@\"\\d*:\\d*:\\d*, \\w* \\d*, \\d*\");\n\nResponder {{GetResponder(); //Returns the Responder being tested.}}",
-    "bugs": {
-      "GetResponder();": {
-        "type": "naming",
-        "replace": "GetTestResponder();",
-        "description": "Если появляется желание написать поясняющий комментарий к методу, стоит вместо этого постараться придумать более удачное имя методу."
-      }
-    }
-  },
-  {
-    "name": "ExplainCompare",
-    "instruction": "Хорошие комментарии должны объяснять намерения программиста в тех случаях, когда их сложно выразить непосредственно кодом.",
-    "code": "{{//comparison of this and other object}}\npublic int CompareTo(object o)\n{\n\tvar other = o as WikiPagePath;\n\tif(other != null)\n\t{\n\t\t{{//compares concatenated names of this and others}}\n\t\tstring thisNames = string.Join(\"\", this.Names);\n\t\tstring otherNames = string.Join(\"\", other.Names);\n\t\treturn thisNames.CompareTo(otherNames);\n\t}\n\treturn 1; // WikiPagePath should be greater than any other wrong type.\n} {{//end of CompareTo}}",
-    "bugs": {
-      "//compares": {
-        "type": "comments",
-        "replace": "",
-        "description": "Комментарии дословно повторяющие код бессмысленны."
-      },
-      "//comparison": {
-        "type": "comments",
-        "replace": "",
-        "description": "Бессмысленно писать в комментарии то, что итак понятно из названия метода."
-      },
-      "//end": {
-        "type": "comments",
-        "replace": "",
-        "description": "Комментарии вида 'конец цикла', 'конец функции' и подобные бессмысленны. \nДля коротких функций они не нужны, а длинные функции лучше разбить на несколько более коротких, вместо написания таких комментариев."
-      }
-    }
-  },
-  {
-    "name": "XMLDoc",
-    "instruction": "А что вы думаете о спец-комментариях — XML-документации и комментариях с историей изменений файла?",
-    "code": "{{/*Changes (from 11-Oct-2011)\n* --------------------------\n* 12-Sep-2011 : Fix bug\n* 11-Oct-2011 : Move implementation to another file\n* 05-Nov-2011 : Add XML comments \n*/\n}}namespace Logger\n{\n\t///<summary>Implement Logger to provide customized event filtering</summary>\n\t///<remarks>\n\t///<para>\n\t///Users should implement this interface to implement customized logging\n\t///event filtering. Note that <see cref=\"Logger.Repository.Hierarchy.Logger\"/>\n\t///and <see cref=\"Logger.Appender.AppenderSkeleton\"/>, the parent class of all\n\t///standard appenders, have built-in filtering rules. It is suggested that you\n\t///first use and understand the built-in rules before rushing to write\n\t///your own custom filters.\n\t///</para>\n\t///</remarks>\n\tpublic interface IFilter : IOptionHandler\n\t{\n\t\t{{///<summary>Make a decision about logging event.</summary>\n\t\t///<param name=\"loggingEvent\">The LoggingEvent to decide upon</param>\n\t\t///<returns>The decision of the filter</returns>}}\n\t\tFilterDecision Decide(LoggingEvent loggingEvent);\n\n\t\t{{///<summary>Property to get and set the next filter</summary>\n\t\t///<value>The next filter in chain</value>\n\t\t}}IFilter NextInChain { get; set; }\n\t}\n}",
-    "bugs": {
-      "///<summary>Make": {
-        "type": "comments",
-        "replace": "",
-        "description": "XML-комментарии не несущие новой информации бесполезны."
-      },
-      "///<summary>Property": {
-        "type": "comments",
-        "replace": "",
-        "description": "Не пишите XML-комментарий только для того, чтобы он был. В наличии комментария должен быть какой-то смысл."
-      },
-      "/*Changes": {
-        "type": "comments",
-        "replace": "",
-        "description": "Когда-то очень давно был смысл писать комментарии с историей изменения файла.\nНо сейчас вместо таких комментариев лучше использовать систему контроля версий и писать понятные сообщения к коммитам."
-      }
-    }
-  },
-  {
     "name": "collision",
     "instruction": "Время закрепить освоенные знания!",
     "code": "{{///<summary>Обрабатывает столкновение героя с врагом</summary>}}\nvoid {{CollisionHandler}}(GameObject hero, GameObject enemy)\n{\n\t{{//If hero and enemy collided\n\tif ((hero.X-enemy.X)*(hero.X-enemy.X) + (hero.Y-enemy.Y)*(hero.Y-enemy.Y) \n\t\t< (hero.Radius + enemy.Radius)*(hero.Radius + enemy.Radius))}}\n\t{\n\t\thero.Life--;\n\t\tif (!hero.IsAlive && OnHeroDeath != null) {{//нужно оповестить подписчиков}}\n\t\t\tOnHeroDeath(hero);\n\t}\n}",
@@ -475,38 +329,6 @@ module.exports=[
         "type": "comments",
         "replace": "",
         "description": "Комментарии дословно повторяющие код бессмысленны."
-      }
-    }
-  },
-  {
-    "name": "LoadMap",
-    "instruction": "Последний уровень! По законам жанра тут должно быть много кода!",
-    "code": "///<param name=\"path\">\n/// Path to file or directory with map description. \n/// If path is a path to directory, file default.map is used.\n///</param>\nGameMap LoadMap(string path)\n{\n\tvar {{Filename}} = Directory.Exists(path) \n\t\t? Path.Combine(path, \"default.map\") \n\t\t: path;\n\tvar lines = File.ReadAllLines({{Filename}});\n\tvar height = lines.Length;\n\tvar width = lines[0].Length;\n\t{{//Initialize map}}\n\tvar map = new GameMap(width, height{{) \n\t\t\t\t{\n\t\t\t\t\tScore = 0,\n\t\t\t\t\tHeroLifesCount = 3,\n\t\t\t\t\tTime = 0,\n\t\t\t\t}; }}\n\tfor(var y=0; y<height; y++)\n\t\tfor(var x=0; x<{{lines[0].Length}}; x++)\n\t\t{\n\t\t\t{{//============Select object to put in (x, y) cell;\n\t\t\tGameObject obj = null;\n\t\t\tswitch (lines[y][x])\n\t\t\t{\n\t\t\t\tcase 'H': \n\t\t\t\t\tobj = new Hero();\n\t\t\t\t\tbreak;\n\t\t\t\tcase '#':\n\t\t\t\t\tobj = new Wall();\n\t\t\t\t\tbreak;\n\t\t\t\tcase 'M':\n\t\t\t\t\tobj = new Monster();\n\t\t\t\t\tbreak;\n\t\t\t}\n\t\t\t//============Put created object on map}}\n\t\t\tmap.Put(x, y, obj);\n\t\t}\n\treturn map;\n}",
-    "bugs": {
-      "Filename": {
-        "type": "naming",
-        "replace": "filename",
-        "description": "В C# локальные переменные принято называть с маленькой буквы."
-      },
-      "lines[0].Length": {
-        "type": "other",
-        "replace": "width",
-        "description": "Устраняйте дублирование. Это делает код  понятнее и надежнее."
-      },
-      "//Initialize": {
-        "type": "comments",
-        "replace": "",
-        "description": "При виде комментария, разделяющего метод на смысловые части, стоит вынести эти смысловые части в отдельные методы."
-      },
-      ")": {
-        "type": "methods",
-        "replace": ");",
-        "description": "Логику инициализации полей карты лучше переместить в конструктор класса карты."
-      },
-      "//============Select": {
-        "type": "methods",
-        "replace": "var obj = CreateGameObjectFromChar(lines[y][x]);",
-        "description": "Разделительные комментарии вроде такого часто показывают, что программист поленился выделить вспомогательный метод."
       }
     }
   }
